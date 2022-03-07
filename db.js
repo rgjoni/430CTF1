@@ -14,13 +14,6 @@ db.serialize(function () {
     salt BLOB, \
     balance INTEGER NOT NULL \
   )");
-
-  db.run("CREATE TABLE IF NOT EXISTS todos ( \
-    owner_id INTEGER NOT NULL, \
-    title TEXT NOT NULL, \
-    completed INTEGER \
-  )");
-
   // create an initial user (username: alice, password: letmein)
   var salt = crypto.randomBytes(16);
   db.run('INSERT OR IGNORE INTO users (username, hashed_password, salt, balance) VALUES (?, ?, ?, ?)', [
