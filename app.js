@@ -13,12 +13,15 @@ var SQLiteStore = require('connect-sqlite3')(session);
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
+var blueRouter = require("./routes/blue")
+
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+//app.set('base', '/blue');
 
 app.locals.pluralize = require('pluralize');
 
@@ -47,8 +50,12 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/', indexRouter);
-app.use('/', authRouter);
+//app.use('/', indexRouter);
+//app.use('/', authRouter);
+app.use("/blue", blueRouter);
+app.get('/', function (req, res, next) {
+  res.redirect(301, '/blue')
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

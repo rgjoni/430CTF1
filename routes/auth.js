@@ -70,7 +70,7 @@ var router = express.Router();
  * sent to the `POST /login/password` route.
  */
 router.get('/login', function (req, res, next) {
-  res.send("We are here")
+  res.render('login');
 });
 
 /* POST /login/password

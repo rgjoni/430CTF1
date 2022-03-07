@@ -12,7 +12,7 @@ db.serialize(function () {
     username TEXT UNIQUE, \
     hashed_password BLOB, \
     salt BLOB, \
-    balance INTEGER NOT NULL \
+    balance INTEGER DEFAULT 0 \
   )");
   // create an initial user (username: alice, password: letmein)
   var salt = crypto.randomBytes(16);
