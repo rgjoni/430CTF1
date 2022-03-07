@@ -12,8 +12,7 @@ db.serialize(function () {
     username TEXT UNIQUE, \
     hashed_password BLOB, \
     salt BLOB, \
-    balance INTEGER NOT NULL, \
-    isOpen INTEGER \
+    balance INTEGER NOT NULL \
   )");
 
   db.run("CREATE TABLE IF NOT EXISTS todos ( \
@@ -24,12 +23,11 @@ db.serialize(function () {
 
   // create an initial user (username: alice, password: letmein)
   var salt = crypto.randomBytes(16);
-  db.run('INSERT OR IGNORE INTO users (username, hashed_password, salt, balance, isOpen) VALUES (?, ?, ?, ?, ?)', [
+  db.run('INSERT OR IGNORE INTO users (username, hashed_password, salt, balance) VALUES (?, ?, ?, ?)', [
     'alice',
     crypto.pbkdf2Sync('letmein', salt, 310000, 32, 'sha256'),
     salt,
-    0,
-    1
+    0
   ]);
 });
 
