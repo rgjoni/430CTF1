@@ -35,6 +35,10 @@ router.get('/', function (req, res, next) {
             }
             newAmount = parseInt(newAmount);
             newAmount = newAmount - parseInt(amount);
+            if(newAmount<0)
+            {
+                return res.send("Insufficient funds")
+            }
             console.log("subtr: " + newAmount)
             db.run('UPDATE users SET balance = ? WHERE username = ?;', [
                 newAmount,
