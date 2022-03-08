@@ -51,7 +51,7 @@ app.use(function (req, res, next) {
 });
 
 //app.use('/', indexRouter);
-//app.use('/', authRouter);
+// app.use('/', authRouter);
 app.use("/blue", blueRouter);
 app.get('/', function (req, res, next) {
   res.redirect(301, '/blue')

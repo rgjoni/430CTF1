@@ -61,17 +61,6 @@ passport.deserializeUser(function (user, cb) {
 
 var router = express.Router();
 
-/* GET /login
- *
- * This route prompts the user to log in.
- *
- * The 'login' view renders an HTML form, into which the user enters their
- * username and password.  When the user submits the form, a request will be
- * sent to the `POST /login/password` route.
- */
-router.get('/login', function (req, res, next) {
-  res.render('login');
-});
 
 /* POST /login/password
  *
@@ -90,8 +79,8 @@ router.get('/login', function (req, res, next) {
  * a message informing them of what went wrong.
  */
 router.post('/login/password', passport.authenticate('local', {
-  successReturnToOrRedirect: '/',
-  failureRedirect: '/login',
+  successReturnToOrRedirect: '/blue',
+  failureRedirect: '/blue',
   failureMessage: true
 }));
 
@@ -102,18 +91,6 @@ router.post('/login/password', passport.authenticate('local', {
 router.post('/logout', function (req, res, next) {
   req.logout();
   res.redirect('/');
-});
-
-/* GET /signup
- *
- * This route prompts the user to sign up.
- *
- * The 'signup' view renders an HTML form, into which the user enters their
- * desired username and password.  When the user submits the form, a request
- * will be sent to the `POST /signup` route.
- */
-router.get('/signup', function (req, res, next) {
-  res.render('signup');
 });
 
 /* POST /signup
@@ -142,7 +119,7 @@ router.post('/signup', function (req, res, next) {
       };
       req.login(user, function (err) {
         if (err) { return next(err); }
-        res.redirect('/');
+        res.redirect('/blue/manage');
       });
     });
   });

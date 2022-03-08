@@ -18,7 +18,7 @@
 					<%= user.username %>
 				</li>
 				<li>
-					<form action="/logout" method="post">
+					<form action="/blue/logout" method="post">
 						<button class="logout" type="submit">Sign out</button>
 						<input type="hidden" name="_csrf" value="<%= csrfToken %>">
 					</form>
@@ -27,11 +27,14 @@
 		</nav>
 		<header class="header">
 			<h1>BANK</h1>
-			<form action="/blue/manage/action" method="get">
+			<form action="/blue/manage" method="get">
 				<input class="new-todo" name="action" placeholder="enter action" autofocus>
 				<input class="new-todo" name="amount" placeholder="enter amount" autofocus>
 				<button>Submit</button>
 			</form>
+			<li>
+				<%= data %>
+			</li>
 		</header>
 	</section>
 

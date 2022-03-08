@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../db');
-router.get('/action', function (req, res, next) {
+router.get('/', function (req, res, next) {
     console.log(req.query)
     // res.send("Deposit set for now")
     let action = req.query.action
@@ -23,7 +23,7 @@ router.get('/action', function (req, res, next) {
                 req.user.username
             ], function (err) {
                 if (err) { return next(err); }
-                return res.redirect('/');
+                return res.render('index', { data: newAmount, user: req.user })
             });
         })
     } else if (action == "withdraw") {
@@ -41,7 +41,7 @@ router.get('/action', function (req, res, next) {
                 req.user.username
             ], function (err) {
                 if (err) { return next(err); }
-                return res.redirect('/');
+                return res.render('index', { data: newAmount, user: req.user })
             });
         })
     } else if (action == "balance") {
@@ -52,14 +52,20 @@ router.get('/action', function (req, res, next) {
                 newAmount = 0;
             }
             newAmount = parseInt(newAmount);
+            return res.render('index', { data: newAmount, user: req.user })
         })
     } else if (action == "close") {
+        console.log("close")
         db.run('DELETE FROM users WHERE username = ?', [
             req.user.username
         ], function (err) {
             if (err) { return next(err); }
-            return res.redirect('/');
+            req.logout();
+            return res.render('login')
         });
+    }
+    else {
+        return res.redirect('/blue');
     }
 
 });
